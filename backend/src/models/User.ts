@@ -5,6 +5,7 @@ export class User {
   public name: string;
   public username: string;
   public bio: string;
+  public techs: string;
   public avatarUrl: string;
   public password: string;
   public admin: boolean;
@@ -13,6 +14,7 @@ export class User {
     this.name = props.name
     this.username = props.username
     this.bio = props.bio
+    this.techs = props.techs
     this.avatarUrl = props.avatarUrl
     this.password = props.password
     this.admin = props.admin

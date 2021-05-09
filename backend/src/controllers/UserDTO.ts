@@ -1,8 +1,6 @@
 export interface ICreateUserRequestDTO {
     username: string;
-    name: string;
-    bio: string;
-    avatarUrl: string;
+    techs: string;
     password: string;
     admin: boolean;
 }

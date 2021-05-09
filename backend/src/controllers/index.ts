@@ -5,10 +5,10 @@ import { UserController } from "./UserController";
 
 const usersDAO = new UsersDAO()
 
-const createUser = new CreateUser( usersDAO )
-
 const githubProvider = new GithubProvider()
 
-const userController = new UserController(createUser, githubProvider)
+const createUser = new CreateUser(usersDAO, githubProvider)
+
+const userController = new UserController(createUser)
 
 export { userController }
