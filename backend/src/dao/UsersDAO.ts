@@ -34,7 +34,7 @@ export class UsersDAO implements IUsersDAO {
       `${user.name}`,
       `${user.username}`,
       `${user.bio}`,
-      `${user.techs}`,
+      user.techs,
       `${user.avatarUrl}`,
       `${user.password}`,
       `${user.admin}`
@@ -47,4 +47,49 @@ export class UsersDAO implements IUsersDAO {
       throw new Error(error.message)
     }
   }
+
+  async searchUsers(): Promise<Array<User>> {
+    const query = 'SELECT * FROM users'
+
+    try {
+      const response: QueryResult = await pool.query(query)
+
+      const users = response.rows.map(user => {
+        return new User(user)
+      })
+
+      return users
+    } catch(error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async searchUsersByTech(tech: string): Promise<Array<User>> {
+    const query = 'SELECT * FROM users WHERE ($1)=ANY(techs)'
+    const values = [tech]
+
+    try {
+      const response: QueryResult = await pool.query(query, values)
+
+      const users = response.rows.map(user => {
+        return new User(user)
+      })
+
+      return users
+    } catch(error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async deleteUser(username: string): Promise<void> {
+    const query = 'DELETE FROM users WHERE username=($1)'
+    const values = [username]
+
+    try {
+      await pool.query(query, values)
+    } catch(error) {
+      throw new Error(error.message)
+    }
+  }
+
 }
