@@ -1,5 +1,6 @@
-import { Router } from "express";
-import { userController } from './controllers/index'
+import { response, Router } from "express";
+import { userController } from './controllers/user/index'
+import { professionController } from './controllers/profession/index'
 
 const router = Router()
 
@@ -17,6 +18,22 @@ router.get('/users/tech', (request, response) => {
 
 router.delete('/users/delete/:username', (request, response) => {
     return userController.delete(request, response)
+})
+
+router.post('/professions', (request, response) => {
+    return professionController.create(request, response)
+})
+
+router.get('/professions', (request, response) => {
+    return professionController.search(request, response)
+})
+
+router.get('/professions/profession', (request, response) => {
+    return professionController.searchByName(request, response)
+})
+
+router.put('/professions/:id', (request, response) => {
+    return professionController.update(request, response)
 })
 
 export { router }
