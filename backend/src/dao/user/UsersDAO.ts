@@ -1,6 +1,6 @@
 import { QueryResult } from "pg";
-import { User } from "../models/User";
-import { pool } from "../utils/database";
+import { User } from "../../models/User";
+import { pool } from "../../utils/database";
 import { IUsersDAO } from "./IUsersDAO";
 
 export class UsersDAO implements IUsersDAO {

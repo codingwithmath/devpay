@@ -1,6 +1,6 @@
-import { IUsersDAO } from "../dao/IUsersDAO";
-import { User } from "../models/User";
-import { IGithubProvider } from "../providers/IGithubProvider";
+import { IUsersDAO } from "../../dao/user/IUsersDAO";
+import { User } from "../../models/User";
+import { IGithubProvider } from "../../providers/IGithubProvider";
 import { ICreateUserRequestDTO } from "./UserDTO";
 
 export class CreateUser {

@@ -1,5 +1,5 @@
-import { IUsersDAO } from "../dao/IUsersDAO";
-import { User } from "../models/User";
+import { IUsersDAO } from "../../dao/user/IUsersDAO";
+import { User } from "../../models/User";
 
 export class SearchUsers {
   private usersDAO: IUsersDAO

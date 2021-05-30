@@ -1,5 +1,4 @@
-import { IUsersDAO } from "../dao/IUsersDAO";
-import { User } from "../models/User";
+import { IUsersDAO } from "../../dao/user/IUsersDAO";
 
 export class DeleteUser {
   private userDAO: IUsersDAO
@@ -9,6 +8,6 @@ export class DeleteUser {
   }
 
   async execute(username: string): Promise<void> {
-    const users = this.userDAO.deleteUser(username)
+    this.userDAO.deleteUser(username)
   }
 }

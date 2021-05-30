@@ -1,5 +1,5 @@
-import { UsersDAO } from "../dao/UsersDAO";
-import { GithubProvider } from "../providers/GithubProvider";
+import { UsersDAO } from "../../dao/user/UsersDAO";
+import { GithubProvider } from "../../providers/GithubProvider";
 import { CreateUser } from "./CreateUser";
 import { DeleteUser } from "./DeleteUser";
 import { SearchUsers } from "./SearchUsers";
