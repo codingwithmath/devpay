@@ -1,48 +1,47 @@
+import { uuid } from "uuidv4";
 import { IUsersDAO } from "../../dao/user/IUsersDAO";
 import { User } from "../../models/User";
 import { IGithubProvider } from "../../providers/IGithubProvider";
 import { ICreateUserRequestDTO } from "./UserDTO";
 
 export class CreateUser {
-  private usersDAO: IUsersDAO
-  private githubProvider: IGithubProvider;
-
   constructor(
-    usersDAO: IUsersDAO,
-    githubProvider: IGithubProvider
-  ) {
-    this.usersDAO = usersDAO
-    this.githubProvider = githubProvider
-  }
+    private usersDAO: IUsersDAO,
+    private githubProvider: IGithubProvider
+  ) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<void> {
+    const user = new User();
+
+    user.username = data.username
+
     let githubUserInfo
     
     try {
-      githubUserInfo = await this.githubProvider.getUser(data.username)
+      githubUserInfo = await this.githubProvider.getUser(user)
     }
     catch(err) {
-      throw new Error("github user not found")
+      throw new Error("github-user-not-found")
     }
 
-    const userAlreadyExists = await this.usersDAO.findByUsername(data.username)
+    const userAlreadyExists = await this.usersDAO.doUserExist(user)
 
     if (userAlreadyExists) {
-      throw new Error("user already exists.")
+      throw new Error("user-already-exists")
     }
 
-    const newUser = {
-      name: githubUserInfo.name,
-      username: data.username,
-      bio: githubUserInfo.bio,
-      techs: data.techs,
-      avatarUrl: githubUserInfo.avatarUrl,
-      password: data.password,
-      admin: data.admin
-    }
-    
-    const user = new User(newUser);
+    const techs = data.techs.map(tech => {
+      return tech.toLocaleLowerCase()
+    })
 
+    user.id = uuid()
+    user.name = githubUserInfo.name,
+    user.bio = githubUserInfo.bio,
+    user.techs = techs,
+    user.avatarUrl = githubUserInfo.avatarUrl,
+    user.password = data.password,
+    user.admin = data.admin
+  
     await this.usersDAO.save(user)
   }
 }

@@ -1,4 +1,4 @@
-import { response, Router } from "express";
+import { Router } from "express";
 import { userController } from './controllers/user/index'
 import { professionController } from './controllers/profession/index'
 

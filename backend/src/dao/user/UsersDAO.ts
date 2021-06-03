@@ -5,9 +5,9 @@ import { IUsersDAO } from "./IUsersDAO";
 
 export class UsersDAO implements IUsersDAO {
 
-  async findByUsername(username: string): Promise<Boolean> {
+  async doUserExist(user: User): Promise<Boolean> {
     const query = 'SELECT * FROM users WHERE username = ($1)'
-    const values = [`${username}`]
+    const values = [user.username]
 
     try {
       const response: QueryResult = await pool.query(query, values)
@@ -55,7 +55,18 @@ export class UsersDAO implements IUsersDAO {
       const response: QueryResult = await pool.query(query)
 
       const users = response.rows.map(user => {
-        return new User(user)
+        const userInstance = new User()
+
+        userInstance.id = user.id
+        userInstance.name = user.name
+        userInstance.username = user.username
+        userInstance.bio = user.bio
+        userInstance.techs = user.techs
+        userInstance.avatarUrl = user.avatarurl
+        userInstance.password = user.password
+        userInstance.admin = user.admin
+
+        return userInstance
       })
 
       return users
@@ -71,8 +82,25 @@ export class UsersDAO implements IUsersDAO {
     try {
       const response: QueryResult = await pool.query(query, values)
 
+      if (!response.rows[0]) {
+        throw new Error('users-not-founded')
+      }
+
       const users = response.rows.map(user => {
-        return new User(user)
+        const userInstance = new User()
+
+        userInstance.id = user.id
+        userInstance.name = user.name
+        userInstance.username = user.username
+        userInstance.bio = user.bio
+        userInstance.techs = user.techs
+        userInstance.avatarUrl = user.avatarurl
+        userInstance.password = user.password
+        userInstance.admin = user.admin
+
+        console.log(userInstance)
+
+        return userInstance
       })
 
       return users
@@ -81,9 +109,9 @@ export class UsersDAO implements IUsersDAO {
     }
   }
 
-  async deleteUser(username: string): Promise<void> {
+  async deleteUser(user: User): Promise<void> {
     const query = 'DELETE FROM users WHERE username=($1)'
-    const values = [username]
+    const values = [user.username]
 
     try {
       await pool.query(query, values)

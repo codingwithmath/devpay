@@ -1,3 +1,5 @@
+import { User } from "../models/User";
+
 export interface IGitHubProviderResponse {
     name: string,
     bio: string
@@ -5,5 +7,5 @@ export interface IGitHubProviderResponse {
 }
 
 export interface IGithubProvider {
-    getUser( username: string): Promise<IGitHubProviderResponse>;
+    getUser( user: User): Promise<IGitHubProviderResponse>;
 }

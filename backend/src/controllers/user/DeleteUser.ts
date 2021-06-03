@@ -1,13 +1,23 @@
 import { IUsersDAO } from "../../dao/user/IUsersDAO";
+import { User } from "../../models/User";
 
 export class DeleteUser {
-  private userDAO: IUsersDAO
 
-  constructor(userDAO: IUsersDAO) {
-    this.userDAO = userDAO
-  }
+  constructor(
+    private userDAO: IUsersDAO
+  ) {}
 
   async execute(username: string): Promise<void> {
-    this.userDAO.deleteUser(username)
+    const user = new User()
+
+    user.username = username
+
+    const doUserExist = await this.userDAO.doUserExist(user)
+
+    if (!doUserExist) {
+      throw new Error('user-not-founded')
+    }
+
+    this.userDAO.deleteUser(user)
   }
 }
