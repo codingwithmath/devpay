@@ -107,6 +107,18 @@ export class ProfessionController {
     } catch(error) {
       console.log(error)
 
+      if (error.message === 'profession-not-founded') {
+        return response.status(400).json({
+          message: 'Profession not founded'
+        })
+      }
+
+      if (error.message === 'profession-already-exists') {
+        return response.status(400).json({
+          message: 'Profession already exists'
+        })
+      }
+
       return response.status(500).json({
         message: error.message || 'Unexpected error.'
       })

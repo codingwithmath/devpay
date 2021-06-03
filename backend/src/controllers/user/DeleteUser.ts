@@ -18,6 +18,6 @@ export class DeleteUser {
       throw new Error('user-not-founded')
     }
 
-    this.userDAO.deleteUser(user)
+    await this.userDAO.deleteUser(user)
   }
 }
