@@ -1,5 +1,6 @@
 import { ProfessionDAO } from '../../dao/profession/ProfessionDAO'
 import { CreateProfession } from './CreateProfession'
+import { DeleteProfession } from './DeleteProfession'
 import { ProfessionController } from './ProfessionController'
 import { SearchProfessionByName } from './SearchProfessionByName'
 import { SearchProfessions } from './SearchProfessions'
@@ -15,6 +16,14 @@ const searchProfessionByName = new SearchProfessionByName(professionDAO)
 
 const updateProfession = new UpdateProfession(professionDAO)
 
-const professionController = new ProfessionController(createProfession, searchProfessions, searchProfessionByName, updateProfession)
+const deleteProfession = new DeleteProfession(professionDAO)
+
+const professionController = new ProfessionController(
+  createProfession,
+  searchProfessions,
+  searchProfessionByName,
+  updateProfession,
+  deleteProfession
+)
 
 export { professionController }

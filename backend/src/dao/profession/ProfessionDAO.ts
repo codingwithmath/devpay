@@ -24,6 +24,26 @@ export class ProfessionDAO implements IProfessionDAO {
     }
   }
 
+  async searchProfessionById(profession: Profession): Promise<boolean> {
+    const query = 'SELECT * FROM professions WHERE id = ($1)'
+    const values = [`${profession.id}`]
+
+    try {
+      const response: QueryResult = await pool.query(query, values)
+  
+      const profession = response.rows[0]
+  
+      if (profession) {
+        return true
+      }
+  
+      return false
+    } catch(error) {
+      console.log(error)
+      throw new Error(error.message)
+    }
+  }
+
   async save(profession: Profession): Promise<void> {
     const query = `INSERT INTO professions (id, name, salary, description)
     VALUES (($1), ($2), ($3), ($4))`
@@ -99,6 +119,18 @@ export class ProfessionDAO implements IProfessionDAO {
       await pool.query(query, values)
     } catch(error) {
       console.log(error)
+      throw new Error(error.message)
+    }
+  }
+
+  async deleteProfession(profession: Profession): Promise<void> {
+    console.log('id da profissao', profession.id)
+    const query = 'DELETE FROM professions WHERE id=($1)'
+    const values = [profession.id]
+
+    try {
+      await pool.query(query, values)
+    } catch(error) {
       throw new Error(error.message)
     }
   }

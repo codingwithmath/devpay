@@ -3,13 +3,15 @@ import { CreateProfession } from './CreateProfession'
 import { SearchProfessionByName } from './SearchProfessionByName';
 import { SearchProfessions } from './SearchProfessions';
 import { UpdateProfession } from './UpdateProfession';
+import { DeleteProfession } from './DeleteProfession';
 
 export class ProfessionController {
   constructor(
     private createProfession: CreateProfession,
     private searchProfessions: SearchProfessions,
     private searchProfessionByName: SearchProfessionByName,
-    private updateProfession: UpdateProfession
+    private updateProfession: UpdateProfession,
+    private deleteProfession: DeleteProfession
   ) {
     
   }
@@ -107,6 +109,32 @@ export class ProfessionController {
 
       return response.status(500).json({
         message: error.message || 'Unexpected error.'
+      })
+    }
+  }
+
+  async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+
+    if (!id) {
+      return response.status(400).json({
+        message: 'id no specified'
+      })
+    }
+
+    try { 
+      await this.deleteProfession.execute(id)
+
+      return response.status(200).send()
+    } catch (error) {
+      if (error.message === 'profession-not-founded') {
+        return response.status(400).json({
+          message: 'profession not founded'
+        })
+      }
+
+      return response.status(500).json({
+        message: error.message || 'Unexpected error'
       })
     }
   }

@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { response, Router } from "express";
 import { userController } from './controllers/user/index'
 import { professionController } from './controllers/profession/index'
 
@@ -34,6 +34,10 @@ router.get('/professions/profession', (request, response) => {
 
 router.put('/professions/:id', (request, response) => {
     return professionController.update(request, response)
+})
+
+router.delete('/professions/delete/:id', (request, response) => {
+    return professionController.delete(request, response)
 })
 
 export { router }
