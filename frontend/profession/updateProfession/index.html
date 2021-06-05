@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <div class="form-container">
+      <div id="title">
+        <strong>Crie uma profissão</strong>
+        <img id="title-logo" src="./img/icon3.png" alt="devpay-logo">
+      </div>
+      <form class="form" id="my-form" name="my-form">
+        <div class="input-block">
+          <label for="idProfession">Id da profissão</label>
+          <input type="text" name="idProfession" id="idProfession" required>
+        </div>
+        <div class="input-block">
+            <label for="name">Nome da profissão</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="input-block">
+          <label for="salary">salary</label>
+          <input type="text" name="salary" id="salary" required>
+        </div>
+        <div class="input-block">
+          <label for="description">description</label>
+          <input type="text" name="description" id="description" required>
+        </div>
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </main>
+  <script>
+    const myForm = document.getElementById('my-form');
+
+    myForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const formData = new FormData(myForm);
+
+      const formDataSerialized = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch(`http://localhost:3333/professions/${formDataSerialized.idProfession}`, {
+          method: 'put',
+          body: JSON.stringify(formDataSerialized),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        
+        if (response.status === 200) {
+          alert('Profissão atualizada com sucesso!!!')
+        }
+        
+        if (response.status !== 200) {
+          console.error('error')
+        }
+      } catch (error) {
+        console.error()
+      }
+
+      document.forms['my-form'].reset()
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <div class="form-container">
+      <div id="title">
+        <strong>Deletar uma profissão</strong>
+        <img id="title-logo" src="./img/icon3.png" alt="devpay-logo">
+      </div>
+      <form class="contact-form" id="my-form" name="my-form">
+        <div class="input-block">
+            <label for="id">Id da profissão</label>
+            <input type="text" name="id" id="id" required>
+        </div>
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </main>
+  <script>
+    const myForm = document.getElementById('my-form');
+
+    myForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const formData = new FormData(myForm);
+
+      const formDataSerialized = Object.fromEntries(formData);
+
+      console.log(formDataSerialized)
+
+      const url = `http://localhost:3333/professions/delete/${formDataSerialized.id}`
+
+      console.log(url)
+
+      try {
+        const response = await fetch(url, {
+            method: 'delete'
+          }
+        )
+        
+        if (response.status === 200) {
+          alert('Profissão deletada com sucesso!!!')
+        }
+  
+        if (response.status !== 200) {
+          console.error('error')
+        }
+      } catch (error) {
+        console.error()
+      }
+
+      document.forms['my-form'].reset()
+    })
+  </script>
+</body>
+</html>
