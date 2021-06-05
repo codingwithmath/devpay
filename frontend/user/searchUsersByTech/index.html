@@ -9,16 +9,14 @@
 <body>
   <div class="form-container">
     <div id="title">
-      <strong>Deletar um usuário</strong>
+      <strong>Pesquise usuários por tecnologia</strong>
       <img id="title-logo" src="./img/icon3.png" alt="devpay-logo">
     </div>
-    <form class="contact-form" id="my-form" name="my-form">
-      <div class="input-block">
-          <label for="username">Github username</label>
-          <input type="text" name="username" id="username" required>
-      </div>
-      <button type="submit">submit</button>
-    </form>
+    <div class="input-block">
+        <input type="text" name="tech" id="tech" required>
+        <button type="button" onclick="search();">pesquisar</button>
+    </div>
+    <div id="users"></div>
   <script src="main.js"></script>
 </body>
 </html>

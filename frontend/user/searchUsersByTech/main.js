@@ -1,13 +1,32 @@
-async function getUsers() {
-  const response = await fetch("http://localhost:3333/users")
+async function search() {
+  const tech = getInputValue()
 
-  const jsonResponse = await response.json()
-  createUsers(jsonResponse.data)
+  await searchUserByTech(tech)
 }
 
-getUsers()
+function getInputValue () {
+  const input = document.getElementById("tech").value;
 
-async function createUsers(usersList) {
+  return input
+}
+
+async function searchUserByTech(tech) {
+  const response = await fetch(`http://localhost:3333/users/tech?tech=${tech}`)
+
+  if (response.status === 204) {
+    alert("Nenhum usuário encontrado")
+
+    return
+  }
+
+  const jsonResponse = await response.json()
+
+  const users = jsonResponse.data
+
+  showUsers(users)
+}
+
+function showUsers(usersList) {
   document.getElementById("users").innerHTML = `
     <li className="dev-item">
       ${
@@ -25,7 +44,6 @@ async function createUsers(usersList) {
           `
         })
       }
-
     </li>
   `
 }
