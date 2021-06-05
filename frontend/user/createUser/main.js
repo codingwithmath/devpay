@@ -1,18 +1,26 @@
-async function createUser() {
-  const myForm = document.getElementById('create-user-form');
+const myForm = document.getElementById('my-form');
 
-  myForm.addEventListener('submit', e => {
-    e.preventDefault();
+myForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
 
-    const formData = new FormData(this)
+  const formData = new FormData(myForm);
 
-    console.log(formData)
+  const formDataSerialized = Object.fromEntries(formData);
 
+  formDataSerialized.admin = false
+  formDataSerialized.password = null
+
+  console.log(formDataSerialized)
+
+  try {
     const response = await fetch('http://localhost:3333/users', {
       method: 'post',
-      body: formData
+      body: JSON.stringify( formDataSerialized),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-
+    
     if (response.status === 201) {
       console.log('sucesso')
     }
@@ -20,7 +28,11 @@ async function createUser() {
     if (response.status !== 201) {
       console.error('error')
     }
-  })
-}
+  } catch (error) {
+    console.error()
+    
+    alert("error")
+  }
 
-createUser()
+  document.forms['my-form'].reset()
+})
