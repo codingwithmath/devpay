@@ -30,9 +30,7 @@ export class CreateUser {
       throw new Error("user-already-exists")
     }
 
-    const techs = data.techs.map(tech => {
-      return tech.toLocaleLowerCase()
-    })
+    const techs =  data.techs.split(',').map(tech => tech.trim())
 
     user.id = uuid()
     user.name = githubUserInfo.name,

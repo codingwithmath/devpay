@@ -5,8 +5,10 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@types/cors": "^2.8.10",
     "@types/pg": "^7.14.11",
     "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.6.0",
     "uuidv4": "^6.2.7"

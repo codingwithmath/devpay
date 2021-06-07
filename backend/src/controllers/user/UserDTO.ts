@@ -1,6 +1,6 @@
 export interface ICreateUserRequestDTO {
     username: string;
-    techs: Array<string>;
+    techs: string;
     password: string;
     admin: boolean;
 }
