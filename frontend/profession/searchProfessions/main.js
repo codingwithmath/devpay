@@ -20,7 +20,7 @@ async function createProfessions(professionsList) {
               </div>
             </header>
             <p>${profession.description}</p>
-            <a href={https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(profession.name.trim())}} target="_blank">Vagas no Linkedin</a>          
+            <a href=https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(profession.name.trim())} target="_blank">Vagas no Linkedin</a>          
           `
         })
       }

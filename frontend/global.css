@@ -52,7 +52,7 @@ ul {
   padding: 30px 20px;
   text-align: center;
   width: 400px;
-  height: 400px;
+  height: auto;
 }
 
 section {
@@ -60,4 +60,9 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+img {
+  width: 60px;
+  height: auto;
 }

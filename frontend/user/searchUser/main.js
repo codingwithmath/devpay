@@ -21,7 +21,7 @@ async function createUsers(usersList) {
               </div>
             </header>
             <p>${user.bio}</p>
-            <a href={https://github.com/${user.username}}>GitHub profile</a>          
+            <a href=https://github.com/${user.username}>GitHub profile</a>          
           `
         })
       }
