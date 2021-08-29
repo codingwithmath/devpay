@@ -15,4 +15,4 @@ EXPOSE 3333
 #tmp solution to run without type checking for all files =(
 RUN npx tsc --esModuleInterop ./src/server.ts
 
-CMD ["npm", "start"]
+CMD npm run start
